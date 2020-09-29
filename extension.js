@@ -920,14 +920,18 @@ const EasyScreenCast_Indicator = new Lang.Class({
         }
         if (OPTtemp) {
             Lib.TalkativeLog("-*-replace STD indicator");
+	    /*
             Main.panel.statusArea[
                 "aggregateMenu"
             ]._screencast._indicator.visible = false;
+	    */
         } else {
             Lib.TalkativeLog("-*-use STD indicator");
+	    /*
             Main.panel.statusArea[
                 "aggregateMenu"
             ]._screencast._indicator.visible = isActive;
+	    */
         }
     },
 
