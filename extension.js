@@ -437,9 +437,15 @@ const EasyScreenCast_Indicator = new Lang.Class({
                 // using v4l2src. This means that even if we pick a Pipewire
                 // device, we will always open it with v4l2src.
                 const device = devices[i - 1];
-                const devicePath = device
+                let devicePath = device
                     .get_properties()
-                    .get_string("device.path");
+                    .get_string("object.path");
+		if (devicePath == null) {
+		    devicePath = device
+		    .get_properties()
+		    .get_string("device.path");
+		}
+
                 iDevice = Number(devicePath.replace(/[^0-9]+/gi, ""));
             }
 
