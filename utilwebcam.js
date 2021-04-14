@@ -253,7 +253,9 @@ var HelperWebcam = GObject.registerClass({
         //
         // So, here we filter the devices, that have a device.path property, which
         // means, these are only v4l2 devices
-        var filtered = list.filter(device => device.get_properties().get_string('device.path') !== null);
+        var filtered = list.filter(device => device.get_properties()?.get_string('device.path') !== null  // ||
+//				   device.get_properties()?.get_string('object.path') !== null
+				  );
         Lib.TalkativeLog(`-@-devices number after filtering for v4l2: ${filtered.length}`);
 
         return filtered;
