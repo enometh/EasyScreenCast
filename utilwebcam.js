@@ -249,6 +249,10 @@ export const HelperWebcam = GObject.registerClass({
         var filtered = list.filter(device => {
             let props = device.get_properties();
             let hasDevice = props != null && props.get_string('device.path') !== null;
+	    if (!hasDevice && props)
+		hasDevice = props.get_string('object.path') !== null;
+
+	    // || device.get_properties()?.get_string('object.path') !== null
             if (props != null)
                 props.free();
             return hasDevice;
