@@ -419,7 +419,14 @@ const EasyScreenCastIndicator = GObject.registerClass({
             // i === 0 is "No Webcam selected"
             if (i > 0) {
                 const device = devices[i - 1];
-                devicePath = device.get_properties().get_string('device.path');
+                devicePath = device
+                    .get_properties()
+                    .get_string("object.path");
+		if (devicePath == null) {
+		    devicePath = device
+		    .get_properties()
+		    .get_string("device.path");
+		}
                 Lib.TalkativeLog(`-*-webcam i=${i} devicePath: ${devicePath}`);
             }
 
