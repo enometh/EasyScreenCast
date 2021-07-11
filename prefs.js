@@ -619,7 +619,7 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
         }
 
         //setup event on stack switcher
-        Ref_stackswitcher_FileResolution.connect("event", () => {
+        Ref_stackswitcher_FileResolution.connect("notify::visible-child", () => {
             Lib.TalkativeLog("-^-stack_FR event grab");
             var page = Ref_stack_FileResolution.get_visible_child_name();
             Lib.TalkativeLog("-^-active page -> " + page);
