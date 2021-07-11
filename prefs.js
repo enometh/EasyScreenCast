@@ -73,14 +73,14 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                 vexpand: true,
             });
 
-            this.pack_start(label, true, true, 0);
+	    this.prepend(label);
         } else {
             Lib.TalkativeLog("-^-UI file receive and load: " + uiFilePath);
 
             // gets the interesting builder objects
             let Ref_box_MainContainer = builder.get_object("Main_Container");
             // packs the main table
-            this.pack_start(Ref_box_MainContainer, true, true, 0);
+	    this.prepend(Ref_box_MainContainer);
 
             // setup tab options
             this._initTabOptions(this, builder, Settings.settings);
