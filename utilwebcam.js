@@ -35,7 +35,7 @@ var HelperWebcam = new Lang.Class({
      */
     _init: function () {
         Lib.TalkativeLog("-@-init webcam");
-
+	log(`1 this._refreshAllInputVideo = ${this._refreshAllInputVideo}, type=${typeof(this._refreshAllInputVideo)}`);
         Gst.init(null);
 
         //get gstreamer lib version
@@ -78,12 +78,14 @@ var HelperWebcam = new Lang.Class({
             this.dmBus = this.deviceMonitor.get_bus();
             if (this.dmBus !== null && this.dmBus !== undefined) {
                 Lib.TalkativeLog("-@-dbus created");
-                this.dmBus.add_watch(GLib.PRIORITY_DEFAULT, this._getMsg);
+                this.dmBus.add_watch(GLib.PRIORITY_DEFAULT,
+				     Lang.bind(this, this._getMsg));
                 let caps = Gst.Caps.new_empty_simple("video/x-raw");
                 this.deviceMonitor.add_filter("Video/Source", caps);
                 this.startMonitor();
                 //update device and caps
-                this.refreshAllInputVideo();
+		log(`2 this._refreshAllInputVideo = ${this._refreshAllInputVideo}, type=${typeof(this._refreshAllInputVideo)}`);
+                this._refreshAllInputVideo(this);
             } else {
                 Lib.TalkativeLog("-@-ERROR dbus creation");
             }
@@ -104,13 +106,15 @@ var HelperWebcam = new Lang.Class({
                 Lib.TalkativeLog("Device added");
 
                 //update device and caps
-                this.refreshAllInputVideo();
+	    log(`3 this._refreshAllInputVideo = ${this._refreshAllInputVideo}, type=${typeof(this._refreshAllInputVideo)}`);
+                this._refreshAllInputVideo(this);
                 break;
             case Gst.MessageType.DEVICE_REMOVED:
                 Lib.TalkativeLog("Device removed");
 
                 //update device and caps
-                this.refreshAllInputVideo();
+	    log(`4 this._refreshAllInputVideo = ${this._refreshAllInputVideo}, type=${typeof(this._refreshAllInputVideo)}`);
+                this._refreshAllInputVideo(this);
                 break;
             default:
                 Lib.TalkativeLog("Device UNK");
@@ -123,7 +127,7 @@ var HelperWebcam = new Lang.Class({
     /**
      * refresh all devices info
      */
-    refreshAllInputVideo: function () {
+    _refreshAllInputVideo: function () {
         Lib.TalkativeLog("-@-refresh all video input");
 
         ListDevices = this.getDevicesIV();
