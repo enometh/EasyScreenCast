@@ -771,18 +771,31 @@ const EasyScreenCastSettingsWidget = new GObject.Class({
                 })
             );
         }
-        Ref_filechooser_FileFolder.set_filename(tmpFolder);
 
-        Ref_filechooser_FileFolder.connect("file_set", (self) => {
-            var tmpPathFolder = self.get_filename();
-            Lib.TalkativeLog("-^-file path get from widget : " + tmpPathFolder);
-            if (tmpPathFolder !== null) {
-                Settings.setOption(
-                    Settings.FILE_FOLDER_SETTING_KEY,
-                    tmpPathFolder
-                );
-            }
-        });
+        Ref_filechooser_FileFolder.set_label(tmpFolder); // ;madhu 210808 GtkButton
+	Ref_filechooser_FileFolder.connect('clicked', (but) => {
+	    let chooser = Gtk.FileChooserNative.new(
+		"Select Save Folder",
+		null,
+		Gtk.FileChooserAction.SELECT_FOLDER,
+		"Aye",
+		"Nay");
+	    chooser.connect('response', (_chooser, response_id) => {
+		if (response_id == Gtk.ResponseType.ACCEPT) {
+		    let file = _chooser.get_file();
+		    var tmpPathFolder = file.peek_path();
+		    but.set_label(tmpPathFolder);
+		    Lib.TalkativeLog("-^-file path get from widget : " + tmpPathFolder);
+		    if (tmpPathFolder !== null) {
+			Settings.setOption(
+			    Settings.FILE_FOLDER_SETTING_KEY,
+			    tmpPathFolder
+			);
+		    }
+		}
+	    });
+	    chooser.show();
+	});
     },
 
     /**
