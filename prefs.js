@@ -1202,7 +1202,7 @@ function buildPrefsWidget() {
 
     var widget = new EasyScreenCastSettingsWidget();
 
-    widget.show_all();
+    widget.show();
 
     return widget;
 }
