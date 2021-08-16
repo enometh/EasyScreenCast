@@ -14,6 +14,8 @@ const GIRepository = imports.gi.GIRepository;
 //GIRepository.Repository.prepend_search_path("/usr/lib64/gnome-shell");
 //GIRepository.Repository.prepend_library_path("/usr/lib64/gnome-shell");
 
+imports.gi.versions.Gtk = '4.0';
+
 const GLib = imports.gi.GLib;
 const GObject = imports.gi.GObject;
 const Gio = imports.gi.Gio;
