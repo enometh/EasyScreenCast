@@ -11,8 +11,12 @@
 */
 
 const GIRepository = imports.gi.GIRepository;
-//GIRepository.Repository.prepend_search_path("/usr/lib64/gnome-shell");
+if (GIRepository.Repository.get_search_path() == null) {
+GIRepository.Repository.prepend_search_path("/usr/lib64/gnome-shell");
+}
+//if (GIRepository.Repository.get_library_path() == null) {
 //GIRepository.Repository.prepend_library_path("/usr/lib64/gnome-shell");
+//}
 
 imports.gi.versions.Gtk = '4.0';
 
