@@ -75,9 +75,6 @@ var CaptureVideo = GObject.registerClass({
                 Ext.Indicator.getSettings().getOption('i', Settings.FILE_CONTAINER_SETTING_KEY)
             );
 
-        if (Ext.Indicator.getSettings().getOption('s', Settings.FILE_FOLDER_SETTING_KEY) !== '') {
-            fileRec = `${Ext.Indicator.getSettings().getOption('s', Settings.FILE_FOLDER_SETTING_KEY)}/${fileRec}`;
-        }
 
         let pipelineRec = '';
 
@@ -93,7 +90,14 @@ var CaptureVideo = GObject.registerClass({
 
         Lib.TalkativeLog(`-&-path/file template : ${fileRec}`);
         fileRec = this._generateFileName(fileRec);
+        Lib.TalkativeLog(`-&-path/file sanitized : ${fileRec}`);
+
+        if (Ext.Indicator.getSettings().getOption('s', Settings.FILE_FOLDER_SETTING_KEY) !== '') {
+            fileRec = `${Ext.Indicator.getSettings().getOption('s', Settings.FILE_FOLDER_SETTING_KEY)}/${fileRec}`;
+        }
+
         Lib.TalkativeLog(`-&-path/file final : ${fileRec}`);
+
         if (shellVersion >= 40) {
             // prefix with a videoconvert element
             // see DEFAULT_PIPELINE in https://gitlab.gnome.org/GNOME/gnome-shell/-/blob/main/js/dbusServices/screencast/screencastService.js#L26
