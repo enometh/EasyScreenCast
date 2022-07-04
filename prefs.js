@@ -35,6 +35,14 @@ const UtilGSP = Me.imports.utilgsp;
 const Settings = Me.imports.settings;
 const UtilExeCmd = Me.imports.utilexecmd;
 
+
+function get_toplevel(widget) {
+    if (widget.parent) {
+	return get_toplevel(widget.parent);
+    }
+    return widget;
+}
+
 const EasyScreenCastSettingsWidget = GObject.registerClass({
     GTypeName: 'EasyScreenCast_SettingsWidget',
 }, class EasyScreenCastSettingsWidget extends Gtk.Box {
@@ -771,11 +779,12 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
         if (this._isGtk4()) {
             refFilechooserFileFolder.set_label(`Selected: ${tmpFolder}`);
 
-            refFilechooserFileFolder.connect('clicked', () => {
+            refFilechooserFileFolder.connect('clicked', (but) => {
                 Lib.TalkativeLog('-^- file chooser button clicked...');
+		Lib.TalkativeLog(`-^- file chooser but=${but} toplevel=${get_toplevel(but)}`);
                 let dialog = new Gtk.FileChooserNative({
                     'title': 'Select folder',
-                    'transient-for': null,
+		    'transient-for': get_toplevel(but),
                     'action': Gtk.FileChooserAction.SELECT_FOLDER,
                     'accept-label': 'Ok',
                     'cancel-label': 'Cancel',
