@@ -770,7 +770,10 @@ const EasyScreenCastIndicator = GObject.registerClass({
             Lib.TalkativeLog('-*-record OK');
             // update indicator
             const indicators = this._settings.getOption('i', Settings.STATUS_INDICATORS_SETTING_KEY);
-            this._replaceStdIndicator(indicators === 1 || indicators === 3);
+
+	    // ;madhu 220915 shellVersion 43 lost the aggregateMenu,
+	    // so rewrote replaceStdIndicator
+	    this._replaceStdIndicator(indicators === 1 || indicators === 3);
 
             if (this.isShowNotify) {
                 Lib.TalkativeLog('-*-show notify');
@@ -895,16 +898,21 @@ const EasyScreenCastIndicator = GObject.registerClass({
      * @private
      */
     _replaceStdIndicator(OPTtemp) {
-        if (Main.panel.statusArea['aggregateMenu']._screencast === undefined) {
-            return;
-        }
+
+	var indicator = Main.panel.statusArea['screenRecording'];
+	if (indicator == undefined) {
+            if (Main.panel.statusArea['aggregateMenu']?._screencast === undefined) {
+		return;
+            }
+	    indicator = Main.panel.statusArea['aggregateMenu']._screencast;
+	}
 
         if (OPTtemp) {
             Lib.TalkativeLog('-*-replace STD indicator');
-            Main.panel.statusArea['aggregateMenu']._screencast._indicator.visible = false;
+            indicator.visible = false;
         } else {
             Lib.TalkativeLog('-*-use STD indicator');
-            Main.panel.statusArea['aggregateMenu']._screencast._indicator.visible = isActive;
+            indicator.visible = isActive;
         }
     }
 
