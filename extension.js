@@ -252,7 +252,7 @@ const EasyScreenCastIndicator = GObject.registerClass({
         let i = this._settings.getOption('i', Settings.DEVICE_INDEX_WEBCAM_SETTING_KEY);
         Lib.TalkativeLog(`-*-populated submenuwebcam. Settings i=${i}`);
 
-        this.smWebCam.label.text = this.WebCamDevice[i];
+        this.smWebCam.label.text = this.WebCamDevice[i] || "???";
     }
 
     /**
