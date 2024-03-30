@@ -940,7 +940,9 @@ const EasyScreenCastSettingsWidget = GObject.registerClass({
         if (device > 0) {
             this._initializeWebcamHelper();
             var listCaps = this.CtrlWebcam.getListCapsDevice(device - 1);
+	    if (listCaps){
             Lib.TalkativeLog(`-^-webcam caps: ${listCaps.length}`);
+	    }
             if (listCaps !== null && listCaps !== undefined) {
                 this.Ref_ListStore_QualityWebCam.clear();
                 for (var index in listCaps) {
