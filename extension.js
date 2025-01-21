@@ -144,7 +144,7 @@ const EasyScreenCastIndicator = GObject.registerClass({
         this._addRecordingDelaySubMenu();
         this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
         this.menu_item_options = new PopupMenu.PopupMenuItem(_('Options'));
-        this.menu_item_options.actor.insert_child_at_index(
+        this.menu_item_options.insert_child_at_index(
             new St.Icon({
                 style_class: 'popup-menu-icon',
                 icon_name: 'preferences-other-symbolic',
@@ -267,7 +267,7 @@ const EasyScreenCastIndicator = GObject.registerClass({
             x_expand: true,
             x_align: Clutter.ActorAlign.CENTER,
         });
-        this.imRecordAction.actor.add_child(this.RecordingLabel);
+        this.imRecordAction.add_child(this.RecordingLabel);
         this.imRecordAction.x_expand = true;
         this.imRecordAction.x_fill = true;
         this.imRecordAction.x_align = Clutter.ActorAlign.CENTER;
@@ -490,7 +490,7 @@ const EasyScreenCastIndicator = GObject.registerClass({
                 can_focus: true,
             });
             // add icon on submenu
-            this.AudioMenuItem[i].actor.insert_child_at_index(
+            this.AudioMenuItem[i].insert_child_at_index(
                 new St.Icon({
                     style_class: 'popup-menu-icon',
                     icon_name: 'audio-card-symbolic',
@@ -540,7 +540,7 @@ const EasyScreenCastIndicator = GObject.registerClass({
                     this._settings.getOption('i', Settings.TIME_DELAY_SETTING_KEY)
                 ).toString() + _(' Sec'),
         });
-        this.DelayTimeTitle.actor.add_child(this.DelayTimeLabel);
+        this.DelayTimeTitle.add_child(this.DelayTimeLabel);
         // TODO this.DelayTimeTitle.align = St.Align.END;
 
         this.imSliderDelay = new PopupMenu.PopupBaseMenuItem({
@@ -561,7 +561,7 @@ const EasyScreenCastIndicator = GObject.registerClass({
             this._onDelayTimeChanged()
         );
 
-        this.imSliderDelay.actor.add_child(this.TimeSlider);
+        this.imSliderDelay.add_child(this.TimeSlider);
 
         return [this.DelayTimeTitle, this.imSliderDelay];
     }
