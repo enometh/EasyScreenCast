@@ -52,7 +52,7 @@ const EasyScreenCastIndicator = GObject.registerClass({
     GTypeName: 'EasyScreenCast_Indicator',
 }, class EasyScreenCastIndicator extends PanelMenu.Button {
     constructor(extension) {
-        super(null, 'EasyScreenCast_Indicator');
+        super(0.5, 'EasyScreenCast_Indicator');
 
         this._extension = extension;
         this._settings = new Settings.Settings(this._extension.getSettings());
